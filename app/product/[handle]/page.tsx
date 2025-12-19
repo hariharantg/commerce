@@ -135,14 +135,8 @@ async function RelatedProducts({ id }: { id: string }) {
               <GridTileImage
                 alt={product.title}
                 label={{
-                  title: (
-                    <span className="block font-medium text-base text-neutral-900 dark:text-neutral-100 truncate">{product.title}</span>
-                  ),
-                  amount: (
-                    <span className="block font-bold text-lg text-yellow-600 dark:text-yellow-400 mt-1">
-                      {product.priceRange.maxVariantPrice.currencyCode} {Number(product.priceRange.maxVariantPrice.amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
-                    </span>
-                  )
+                  title: product.title,
+                  amount: `${product.priceRange.maxVariantPrice.currencyCode} ${Number(product.priceRange.maxVariantPrice.amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`
                 }}
                 src={product.featuredImage?.url}
                 fill
