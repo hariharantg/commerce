@@ -115,7 +115,7 @@ export function VariantSelector({
                 className={clsx(
                   'relative flex min-w-[44px] items-center justify-center rounded-full border px-3 py-1.5 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
                   {
-                    'border-blue-600 ring-2 ring-blue-600 bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-black': isActive,
+                    'border-blue-600 ring-2 ring-blue-600 bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-white': isActive,
                     'bg-neutral-100 text-neutral-800 border-neutral-300 hover:bg-blue-50 dark:bg-neutral-900 dark:text-neutral-200 dark:border-neutral-700 dark:hover:bg-blue-900': !isActive && isAvailableForSale,
                     'cursor-not-allowed opacity-60 bg-neutral-100 text-neutral-400 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-500 dark:border-neutral-800': !isAvailableForSale
                   }
