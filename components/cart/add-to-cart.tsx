@@ -270,30 +270,30 @@ export function AddToCart({ product }: { product: Product }) {
                   aria-current={isActive ? "true" : undefined}
                 >
                   <div>
-                    <div className="text-sm font-semibold text-neutral-900 dark:text-white">
+                    <div className="text-sm font-semibold text-neutral-900 dark:text-black">
                       From {t.minQuantity} pcs
                     </div>
                     <div
                       className={clsx(
                         "mt-1 text-xs",
                         isActive
-                          ? "text-blue-700 dark:text-blue-200 font-semibold"
-                          : "text-neutral-700 dark:text-neutral-200"
+                          ? "text-blue-700 dark:text-black font-semibold"
+                          : "text-neutral-700 dark:text-black"
                       )}
                     >
                       {isActive ? "Selected" : `Min ${t.minQuantity}`}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-semibold text-neutral-900 dark:text-white">
+                    <div className="text-sm font-semibold text-neutral-900 dark:text-black">
                       {formatMoney(unit, currency)}
                     </div>
                     <div
                       className={clsx(
                         "mt-1 text-xs",
                         parsedQuantity >= t.minQuantity
-                          ? "text-blue-700 dark:text-blue-200"
-                          : "text-neutral-700 dark:text-neutral-200"
+                          ? "text-blue-700 dark:text-black"
+                          : "text-neutral-700 dark:text-black"
                       )}
                     >
                       {parsedQuantity >= t.minQuantity
