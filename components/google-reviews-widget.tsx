@@ -1,4 +1,10 @@
 "use client";
+// Add global type for gapi
+declare global {
+  interface Window {
+    gapi?: any;
+  }
+}
 import { useEffect, useRef } from 'react';
 
 const reviews = [

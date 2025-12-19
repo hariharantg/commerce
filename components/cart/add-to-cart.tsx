@@ -110,11 +110,14 @@ export function AddToCart({ product }: { product: Product }) {
 
   const whatsappMessage = useMemo(() => {
     const qty = parsedQuantity;
-    const opts = variants.length
-      ? variants[0].selectedOptions.map(
-          (o) => `${o.name}: ${state[o.name.toLowerCase()] || o.value}`
-        )
-      : [];
+    const opts =
+      variants.length &&
+      variants[0] &&
+      Array.isArray(variants[0].selectedOptions)
+        ? variants[0].selectedOptions.map(
+            (o) => `${o.name}: ${state[o.name.toLowerCase()] || o.value}`
+          )
+        : [];
     const selectedOpts = variant
       ? variant.selectedOptions.map(
           (o) => `${o.name}: ${state[o.name.toLowerCase()] || o.value}`

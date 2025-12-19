@@ -136,7 +136,8 @@ async function RelatedProducts({ id }: { id: string }) {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  amount: `${product.priceRange.maxVariantPrice.currencyCode} ${Number(product.priceRange.maxVariantPrice.amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`
+                  amount: Number(product.priceRange.maxVariantPrice.amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 }),
+                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
                 }}
                 src={product.featuredImage?.url}
                 fill

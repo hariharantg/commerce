@@ -81,10 +81,14 @@ export default function ProductPanels() {
       >
         <div className="w-full rounded-xl border border-neutral-200 bg-white shadow-sm dark:bg-neutral-900 dark:border-neutral-700 transition-shadow flex flex-col items-center p-6 min-h-[180px]">
           <div className="flex items-center gap-3 mb-4">
-            <span className={`inline-block w-3 h-3 rounded-full ${panels[current].color}`} aria-hidden="true"></span>
-            <span className="text-lg font-semibold">{panels[current].title}</span>
+            {panels[current] ? (
+              <>
+                <span className={`inline-block w-3 h-3 rounded-full ${panels[current].color}`} aria-hidden="true"></span>
+                <span className="text-lg font-semibold">{panels[current].title}</span>
+              </>
+            ) : null}
           </div>
-          <div className="w-full">{panels[current].content}</div>
+          <div className="w-full">{panels[current] ? panels[current].content : null}</div>
         </div>
         {/* Navigation Arrows */}
         <div className="flex items-center justify-center gap-6 mt-4">
@@ -102,7 +106,7 @@ export default function ProductPanels() {
                 key={idx}
                 onClick={() => goTo(idx)}
                 className={`w-2.5 h-2.5 rounded-full transition-colors ${current === idx ? 'bg-blue-600' : 'bg-neutral-300 dark:bg-neutral-700'}`}
-                aria-label={`Go to ${panels[idx].title}`}
+                aria-label={`Go to ${panels[idx] ? panels[idx].title : ''}`}
               />
             ))}
           </div>

@@ -32,9 +32,11 @@ export function ProductProvider({ children, product, syncToUrl = true }: { child
     // If no URL params and exactly one variant exists, preselect its options.
     if (Object.keys(params).length === 0 && product?.variants?.length === 1) {
       const variant = product.variants[0];
-      variant.selectedOptions.forEach((opt) => {
-        params[opt.name.toLowerCase()] = opt.value;
-      });
+      if (variant && Array.isArray(variant.selectedOptions)) {
+        variant.selectedOptions.forEach((opt) => {
+          params[opt.name.toLowerCase()] = opt.value;
+        });
+      }
     }
 
     return params;
@@ -56,10 +58,12 @@ export function ProductProvider({ children, product, syncToUrl = true }: { child
     if (!hasOptionParams && product.variants?.length === 1) {
       const variant = product.variants[0];
       const newState: ProductState = {};
-      variant.selectedOptions.forEach((opt) => {
-        newState[opt.name.toLowerCase()] = opt.value;
-      });
-      startTransition(() => setOptimisticState(newState));
+      if (variant && Array.isArray(variant.selectedOptions)) {
+        variant.selectedOptions.forEach((opt) => {
+          newState[opt.name.toLowerCase()] = opt.value;
+        });
+        startTransition(() => setOptimisticState(newState));
+      }
     }
     // Only run on mount and when product changes
     // eslint-disable-next-line react-hooks/exhaustive-deps

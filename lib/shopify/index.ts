@@ -259,7 +259,7 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
     throw new Error('Cart not found');
   }
 
-  cart.lines.edges = cart.lines.edges.filter((e) => !lineIds.includes(e.node.id));
+  cart.lines.edges = cart.lines.edges.filter((e) => typeof e.node.id === 'string' && !(lineIds ?? []).includes(e.node.id));
   cart.totalQuantity = cart.lines.edges.reduce((s, e) => s + e.node.quantity, 0);
 
   const subtotal = cart.lines.edges.reduce((sum, e) => sum + (e.node.quantity * 19.99), 0);
