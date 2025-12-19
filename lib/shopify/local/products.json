@@ -7,7 +7,7 @@
     "description": "Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.",
     "descriptionHtml": "<p>Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.</p>",
     "options": [
-      { "id": "opt1", "name": "Size", "values": ["5\"L x 7\"H x 3\"W"] },
+      { "id": "opt1", "name": "Size", "values": ["5L x 7H x 3W inch"] },
       { "id": "opt2", "name": "Color", "values": ["Orange", "Green"] }
     ],
     "priceRange": {
@@ -28,7 +28,7 @@
                 "id": "gid://shopify/ProductVariant/1",
                 "title": "Default Title",
                 "availableForSale": true,
-                "selectedOptions": [{ "name": "Size", "value": "5\"L x 7\"H x 3\"W" }, { "name": "Color", "value": "Orange" }],
+                "selectedOptions": [{ "name": "Size", "value": "5L x 7H x 3W inch" }, { "name": "Color", "value": "Orange" }],
                 "price": { "amount": "19.99", "currencyCode": "INR" },
                 "pricingTiers": [
                     { "minQuantity": 50, "unitPrice": { "amount": "19.99", "currencyCode": "INR" } },
@@ -43,7 +43,7 @@
                 "id": "gid://shopify/ProductVariant/2",
                 "title": "Green Variant",
                 "availableForSale": true,
-                "selectedOptions": [{ "name": "Size", "value": "5\"L x 7\"H x 3\"W" }, { "name": "Color", "value": "Green" }],
+                "selectedOptions": [{ "name": "Size", "value": "5L x 7H x 3W inch" }, { "name": "Color", "value": "Green" }],
                 "price": { "amount": "19.99", "currencyCode": "INR" },
                 "pricingTiers": [
                     { "minQuantity": 50, "unitPrice": { "amount": "19.99", "currencyCode": "INR" } },
@@ -67,12 +67,28 @@
         "/images/products/paper-dotted-bag/Green/Green-paper-dotted-bag-thank-you.jpg"
       ]
     },
-    "seo": { "title": "Sample Product", "description": "A short description." },
+    "seo": { "title": "Paper Dotter thamboolam bag", "description": "Eco-friendly paper dotter thamboolam bag, perfect for traditional ceremonies and gifting." },
     "tags": [
       "all",
       "paper-thamboolam-bags",
       "seemantham-thamboolam-bags",
       "house-warming-thamboolam-bags"
+    ],
+    "reviews": [
+      {
+        "author": "Nagammai Ramaiah",
+        "datePublished": "2023-10-01",
+        "reviewBody": "Nice quality bags. Looks like the photo online. Perfect size and sturdy to hold our heavy return gift item. Loved the customized printing option - printing was clear and I loved it. Ordered online and communicated through whatsapp, the process was very smooth. Delivered on time. Will definitely recommend to friends and will use again in the future.",
+        "name": "Great bags!",
+        "reviewRating": { "ratingValue": 5, "bestRating": 5, "worstRating": 1 }
+      },
+      {
+        "author": "Kodaikkaavirinaadan Urkalan",
+        "datePublished": "2023-09-15",
+        "reviewBody": "Thamboolam Bags provided best service with professional quality. The communication was easy and response was quick. Even in case of short notice, the order was delivered on time and was helpful for me to pack the thamboolam bags. It's a smart choice for the customer's looking for quality with value for money.",
+        "name": "Excellent service",
+        "reviewRating": { "ratingValue": 5, "bestRating": 5, "worstRating": 1 }
+      }
     ],
     "updatedAt": "2025-12-18T00:00:00Z"
   }

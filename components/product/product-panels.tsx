@@ -3,7 +3,7 @@
 
 
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 const panels = [
   {
@@ -29,15 +29,6 @@ const panels = [
         We use sustainable processes and support local communities.
       </p>
     )
-  },
-  {
-    title: 'Reviews',
-    color: 'bg-blue-400',
-    content: (
-      <div className="pt-2 text-base text-neutral-700 dark:text-neutral-200">
-        No reviews yet for this product.
-      </div>
-    )
   }
 ];
 
@@ -45,79 +36,51 @@ const panels = [
 
 
 
-
-
 export default function ProductPanels() {
-  const [current, setCurrent] = useState(0);
-  const total = panels.length;
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const [paused, setPaused] = useState(false);
-
-  const goTo = (idx: number) => {
-    if (idx < 0) setCurrent(total - 1);
-    else if (idx >= total) setCurrent(0);
-    else setCurrent(idx);
-  };
-
-  useEffect(() => {
-    if (paused) return;
-    timerRef.current = setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % total);
-    }, 5000);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [current, paused, total]);
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
     <section className="mt-8 w-full max-w-2xl mx-auto">
-      <div
-        className="relative flex flex-col items-center"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-        tabIndex={-1}
-      >
-        <div className="w-full rounded-xl border border-neutral-200 bg-white shadow-sm dark:bg-neutral-900 dark:border-neutral-700 transition-shadow flex flex-col items-center p-6 min-h-[180px]">
-          <div className="flex items-center gap-3 mb-4">
-            {panels[current] ? (
-              <>
-                <span className={`inline-block w-3 h-3 rounded-full ${panels[current].color}`} aria-hidden="true"></span>
-                <span className="text-lg font-semibold">{panels[current].title}</span>
-              </>
-            ) : null}
+      <div className="space-y-4">
+        {panels.map((panel, idx) => (
+          <div key={panel.title} className="rounded-xl border border-neutral-200 bg-white shadow-sm dark:bg-neutral-900 dark:border-neutral-700 transition-shadow">
+            <button
+              className={
+                `w-full flex items-center justify-between gap-3 px-6 py-4 rounded-xl group transition-colors duration-200
+                bg-white dark:bg-neutral-900
+                hover:bg-blue-50 dark:hover:bg-neutral-800
+                active:bg-blue-100 dark:active:bg-neutral-800
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400`
+              }
+              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+              aria-expanded={openIdx === idx}
+              aria-controls={`panel-content-${idx}`}
+            >
+              <span className="flex items-center gap-3">
+                <span className={`inline-block w-3 h-3 rounded-full ${panel.color}`} aria-hidden="true"></span>
+                <span className="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{panel.title}</span>
+              </span>
+              <svg
+                className={`w-5 h-5 text-neutral-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transform transition-transform duration-200 ${openIdx === idx ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div
+              id={`panel-content-${idx}`}
+              className={`px-6 pb-4 transition-all duration-300 ease-in-out overflow-hidden border-t border-neutral-100 dark:border-neutral-800
+                ${openIdx === idx ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
+              aria-hidden={openIdx !== idx}
+            >
+              {openIdx === idx && (
+                <div className="pt-3">{panel.content}</div>
+              )}
+            </div>
           </div>
-          <div className="w-full">{panels[current] ? panels[current].content : null}</div>
-        </div>
-        {/* Navigation Arrows */}
-        <div className="flex items-center justify-center gap-6 mt-4">
-          <button
-            onClick={() => goTo(current - 1)}
-            className="rounded-full p-2 bg-neutral-100 hover:bg-blue-100 dark:bg-neutral-800 dark:hover:bg-blue-900 transition-colors"
-            aria-label="Previous"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-          </button>
-          {/* Dots */}
-          <div className="flex gap-2">
-            {panels.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => goTo(idx)}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${current === idx ? 'bg-blue-600' : 'bg-neutral-300 dark:bg-neutral-700'}`}
-                aria-label={`Go to ${panels[idx] ? panels[idx].title : ''}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={() => goTo(current + 1)}
-            className="rounded-full p-2 bg-neutral-100 hover:bg-blue-100 dark:bg-neutral-800 dark:hover:bg-blue-900 transition-colors"
-            aria-label="Next"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          </button>
-        </div>
+        ))}
       </div>
     </section>
   );

@@ -19,7 +19,18 @@ export const metadata = {
   robots: {
     follow: true,
     index: true
-  }
+  },
+  keywords: [
+    "chennai thamboolam bags",
+    "chennai thamboolam bags wholesale",
+    "seemantham thamboolam bags",
+    "housewarming thamboolam bags",
+    "marriage thamboolam bags",
+    "wedding thamboolam bags",
+    "puberty thamboolam bags",
+    "baby shower thamboolam bags",
+    "eco friendly thamboolam bags"
+  ]
 };
 
 export default async function RootLayout({
