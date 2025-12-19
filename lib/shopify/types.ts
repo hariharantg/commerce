@@ -88,6 +88,10 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  pricingTiers?: {
+    minQuantity: number;
+    unitPrice: Money;
+  }[];
 };
 
 export type SEO = {
@@ -130,6 +134,11 @@ export type ShopifyProduct = {
   variants: Connection<ProductVariant>;
   featuredImage: Image;
   images: Connection<Image>;
+  minAllowedQuantity?: number;
+  pricingTiers?: {
+    minQuantity: number;
+    unitPrice: Money;
+  }[];
   seo: SEO;
   tags: string[];
   updatedAt: string;

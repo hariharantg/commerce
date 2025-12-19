@@ -2,6 +2,7 @@ import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import GoogleReviewsWidget from 'components/google-reviews-widget';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
@@ -40,6 +41,9 @@ export default async function CategoryPage(props: {
           <ProductGridItems products={products} />
         </Grid>
       )}
+      <div className="mt-12">
+        <GoogleReviewsWidget />
+      </div>
     </section>
   );
 }

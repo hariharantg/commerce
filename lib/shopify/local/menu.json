@@ -1,0 +1,7 @@
+[
+  { "title": "Home", "url": "/" },
+  { "title": "Paper Bags", "url": "/search/paper-thamboolam-bags" },
+  { "title": "Jute Bags", "url": "/search/jute-thamboolam-bags" },
+  { "title": "Non Woven Bags", "url": "/search/non-woven-thamboolam-bags" },
+  { "title": "About", "url": "/pages/about" }
+]

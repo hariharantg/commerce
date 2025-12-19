@@ -1,0 +1,79 @@
+[
+  {
+    "id": "gid://shopify/Product/1",
+    "handle": "paper-dotted-bag",
+    "availableForSale": true,
+    "title": "Paper Dotted Bag",
+    "description": "Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.",
+    "descriptionHtml": "<p>Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.</p>",
+    "options": [
+      { "id": "opt1", "name": "Size", "values": ["5\"L x 7\"H x 3\"W"] },
+      { "id": "opt2", "name": "Color", "values": ["Orange", "Green"] }
+    ],
+    "priceRange": {
+      "maxVariantPrice": { "amount": "19.99", "currencyCode": "INR" },
+      "minVariantPrice": { "amount": "19.99", "currencyCode": "INR" }
+    },
+    "minAllowedQuantity": 50,
+    "pricingTiers": [
+      { "minQuantity": 50, "unitPrice": { "amount": "19.99", "currencyCode": "INR" } },
+      { "minQuantity": 100, "unitPrice": { "amount": "18.99", "currencyCode": "INR" } },
+      { "minQuantity": 300, "unitPrice": { "amount": "16.99", "currencyCode": "INR" } },
+      { "minQuantity": 500, "unitPrice": { "amount": "15.99", "currencyCode": "INR" } }
+    ],
+    "variants": {
+      "edges": [
+        {
+          "node": {
+                "id": "gid://shopify/ProductVariant/1",
+                "title": "Default Title",
+                "availableForSale": true,
+                "selectedOptions": [{ "name": "Size", "value": "5\"L x 7\"H x 3\"W" }, { "name": "Color", "value": "Orange" }],
+                "price": { "amount": "19.99", "currencyCode": "INR" },
+                "pricingTiers": [
+                    { "minQuantity": 50, "unitPrice": { "amount": "19.99", "currencyCode": "INR" } },
+                    { "minQuantity": 100, "unitPrice": { "amount": "18.99", "currencyCode": "INR" } },
+                    { "minQuantity": 300, "unitPrice": { "amount": "16.99", "currencyCode": "INR" } },
+                    { "minQuantity": 500, "unitPrice": { "amount": "15.99", "currencyCode": "INR" } }
+                ]
+              }
+        },
+            {
+              "node": {
+                "id": "gid://shopify/ProductVariant/2",
+                "title": "Green Variant",
+                "availableForSale": true,
+                "selectedOptions": [{ "name": "Size", "value": "5\"L x 7\"H x 3\"W" }, { "name": "Color", "value": "Green" }],
+                "price": { "amount": "19.99", "currencyCode": "INR" },
+                "pricingTiers": [
+                    { "minQuantity": 50, "unitPrice": { "amount": "19.99", "currencyCode": "INR" } },
+                    { "minQuantity": 100, "unitPrice": { "amount": "18.99", "currencyCode": "INR" } },
+                    { "minQuantity": 300, "unitPrice": { "amount": "16.99", "currencyCode": "INR" } },
+                    { "minQuantity": 500, "unitPrice": { "amount": "15.99", "currencyCode": "INR" } }
+                ]
+              }
+            }
+      ]
+    },
+    "featuredImage": { "url": "/images/products/Paper-bag.jpg", "altText": "Paper bag", "width": 600, "height": 600 },
+    "images": { "edges": [ { "node": { "url": "/images/products/Paper-bag.jpg", "altText": "Paper bag", "width": 600, "height": 600 } } ] },
+    "imagesByColor": {
+      "Orange": [
+        "/images/products/paper-dotted-bag/Orange/Orange-paper-dotted-bag-thank-you.jpg",
+        "/images/products/paper-dotted-bag/Orange/Orange-paper-dotted-bag-2.jpg"
+      ],
+      "Green": [
+        "/images/products/paper-dotted-bag/Green/Green-paper-dotted-bag-thank-you-2.jpg",
+        "/images/products/paper-dotted-bag/Green/Green-paper-dotted-bag-thank-you.jpg"
+      ]
+    },
+    "seo": { "title": "Sample Product", "description": "A short description." },
+    "tags": [
+      "all",
+      "paper-thamboolam-bags",
+      "seemantham-thamboolam-bags",
+      "house-warming-thamboolam-bags"
+    ],
+    "updatedAt": "2025-12-18T00:00:00Z"
+  }
+]

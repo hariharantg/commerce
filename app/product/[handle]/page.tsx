@@ -6,6 +6,7 @@ import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
+import ProductPanels from 'components/product/product-panels';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
@@ -73,19 +74,19 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
   };
 
   return (
-    <ProductProvider>
+    <ProductProvider product={product} syncToUrl={true}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-8 rounded-2xl border border-neutral-200 bg-white p-4 sm:p-8 md:p-12 lg:flex-row lg:gap-12 dark:border-neutral-800 dark:bg-black shadow-md">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Suspense
               fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-xl" />
               }
             >
               <Gallery
@@ -93,13 +94,15 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
                   src: image.url,
                   altText: image.altText
                 }))}
+                imagesByColor={(product as any).imagesByColor}
               />
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
+          <div className="basis-full lg:basis-2/6 flex flex-col gap-6">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
+              <ProductPanels />
             </Suspense>
           </div>
         </div>
@@ -132,9 +135,14 @@ async function RelatedProducts({ id }: { id: string }) {
               <GridTileImage
                 alt={product.title}
                 label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                  title: (
+                    <span className="block font-medium text-base text-neutral-900 dark:text-neutral-100 truncate">{product.title}</span>
+                  ),
+                  amount: (
+                    <span className="block font-bold text-lg text-yellow-600 dark:text-yellow-400 mt-1">
+                      {product.priceRange.maxVariantPrice.currencyCode} {Number(product.priceRange.maxVariantPrice.amount).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+                    </span>
+                  )
                 }}
                 src={product.featuredImage?.url}
                 fill

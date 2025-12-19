@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "title": "About",
+    "handle": "about",
+    "body": "About page body",
+    "bodySummary": "About page summary",
+    "createdAt": "2025-12-18T00:00:00Z",
+    "updatedAt": "2025-12-18T00:00:00Z",
+    "seo": { "title": "About", "description": "About page" }
+  }
+]
