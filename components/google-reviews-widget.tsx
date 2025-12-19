@@ -94,7 +94,7 @@ export default function GoogleReviewsWidget() {
 	}, []);
 
 	return (
-		<section className="my-12 w-full max-w-7xl mx-auto rounded-xl bg-white p-8 shadow-xl dark:bg-neutral-900">
+		<section className="my-12 w-full max-w-7xl mx-auto rounded-xl bg-white p-8 shadow-xl dark:bg-neutral-900 dark:text-white">
 			<h2 className="mb-8 text-3xl font-extrabold text-center text-yellow-700 dark:text-yellow-400 flex items-center justify-center gap-3">
 				<svg
 					className="w-8 h-8 text-yellow-400"
@@ -126,7 +126,7 @@ export default function GoogleReviewsWidget() {
 					{reviews.concat(reviews).map((review, idx) => (
 						<div
 							key={idx}
-							className="min-w-[380px] max-w-md rounded-lg bg-gradient-to-br from-yellow-50 to-white p-6 shadow-lg dark:bg-neutral-800 flex-shrink-0 flex flex-col h-full border border-yellow-100 dark:border-neutral-800"
+							  className="min-w-[380px] max-w-md rounded-lg bg-gradient-to-br from-yellow-50 to-white p-6 shadow-lg dark:bg-neutral-900 flex-shrink-0 flex flex-col h-full border border-yellow-100 dark:border-neutral-800 dark:text-white"
 						>
 							<div className="flex items-center gap-2 mb-3">
 								<span className="font-semibold text-lg text-neutral-800 dark:text-white truncate max-w-[220px]">{review.name}</span>
