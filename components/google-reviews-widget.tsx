@@ -129,10 +129,10 @@ export default function GoogleReviewsWidget() {
 							className="min-w-[380px] max-w-md rounded-lg bg-gradient-to-br from-yellow-50 to-white p-6 shadow-lg dark:bg-neutral-800 flex-shrink-0 flex flex-col h-full border border-yellow-100 dark:border-neutral-800"
 						>
 							<div className="flex items-center gap-2 mb-3">
-								<span className="font-semibold text-lg text-neutral-800 dark:text-yellow-100 truncate max-w-[220px]">{review.name}</span>
+								<span className="font-semibold text-lg text-neutral-800 dark:text-white truncate max-w-[220px]">{review.name}</span>
 								<StarRating rating={review.rating} />
 							</div>
-							<p className="text-base text-neutral-700 dark:text-neutral-200 whitespace-pre-line break-words leading-relaxed">
+							<p className="text-base text-neutral-900 dark:text-white whitespace-pre-line break-words leading-relaxed">
 								{review.text}
 							</p>
 						</div>

@@ -270,15 +270,15 @@ export function AddToCart({ product }: { product: Product }) {
                   aria-current={isActive ? "true" : undefined}
                 >
                   <div>
-                    <div className="text-sm font-semibold text-neutral-700 dark:text-white">
+                    <div className="text-sm font-semibold text-neutral-900 dark:text-white">
                       From {t.minQuantity} pcs
                     </div>
                     <div
                       className={clsx(
                         "mt-1 text-xs",
                         isActive
-                          ? "text-blue-700 dark:text-blue-400 font-semibold"
-                          : "text-neutral-500 dark:text-neutral-400"
+                          ? "text-blue-700 dark:text-blue-200 font-semibold"
+                          : "text-neutral-700 dark:text-neutral-200"
                       )}
                     >
                       {isActive ? "Selected" : `Min ${t.minQuantity}`}
@@ -292,8 +292,8 @@ export function AddToCart({ product }: { product: Product }) {
                       className={clsx(
                         "mt-1 text-xs",
                         parsedQuantity >= t.minQuantity
-                          ? "text-blue-700 dark:text-blue-400"
-                          : "text-neutral-500 dark:text-neutral-400"
+                          ? "text-blue-700 dark:text-blue-200"
+                          : "text-neutral-700 dark:text-neutral-200"
                       )}
                     >
                       {parsedQuantity >= t.minQuantity
