@@ -40,5 +40,89 @@
     "description": "Bags for house warming thamboolam gifts.",
     "seo": { "title": "House Warming Thamboolam Bags", "description": "Shop house warming thamboolam bags for griha pravesh ceremonies." },
     "updatedAt": "2025-12-18T00:00:00Z"
+  },
+  {
+    "handle": "wedding-bags",
+    "title": "Wedding Bags",
+    "description": "Bags for wedding return gifts and ceremonies.",
+    "seo": { "title": "Wedding Bags", "description": "Shop wedding bags for all wedding events and return gifts." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "marriage-bags",
+    "title": "Marriage Bags",
+    "description": "Bags for marriage ceremonies and gifts.",
+    "seo": { "title": "Marriage Bags", "description": "Shop marriage bags for traditional marriage ceremonies and gifting." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "baby-shower-bags",
+    "title": "Baby Shower Bags",
+    "description": "Bags for baby shower (seemantham) ceremonies.",
+    "seo": { "title": "Baby Shower Bags", "description": "Shop baby shower bags for seemantham and related events." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "puberty-bags",
+    "title": "Puberty Bags",
+    "description": "Bags for puberty ceremonies and gifts.",
+    "seo": { "title": "Puberty Bags", "description": "Shop puberty bags for traditional puberty ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "ayush-homam-bags",
+    "title": "Ayush Homam Bags",
+    "description": "Bags for ayush homam ceremonies and gifts.",
+    "seo": { "title": "Ayush Homam Bags", "description": "Shop ayush homam bags for traditional rituals and gifting." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "birthday-bags",
+    "title": "Birthday Bags",
+    "description": "Bags for birthday parties and return gifts.",
+    "seo": { "title": "Birthday Bags", "description": "Shop birthday bags for parties and return gifts." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "engagement-bags",
+    "title": "Engagement Bags",
+    "description": "Bags for engagement ceremonies and gifts.",
+    "seo": { "title": "Engagement Bags", "description": "Shop engagement bags for engagement ceremonies and gifting." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "shasti-poorthi-bags",
+    "title": "Shasti Poorthi Bags",
+    "description": "Bags for shasti poorthi ceremonies and gifts.",
+    "seo": { "title": "Shasti Poorthi Bags", "description": "Shop shasti poorthi bags for 60th birthday ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "sadhabhishekam-bags",
+    "title": "Sadhabhishekam Bags",
+    "description": "Bags for sadhabhishekam ceremonies and gifts.",
+    "seo": { "title": "Sadhabhishekam Bags", "description": "Shop sadhabhishekam bags for 80th birthday ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "bhima-ratha-shanthi-bags",
+    "title": "Bhima Ratha Shanthi Bags",
+    "description": "Bags for bhima ratha shanthi ceremonies and gifts.",
+    "seo": { "title": "Bhima Ratha Shanthi Bags", "description": "Shop bhima ratha shanthi bags for 70th birthday ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "naming-bags",
+    "title": "Naming Bags",
+    "description": "Bags for naming ceremonies and gifts.",
+    "seo": { "title": "Naming Bags", "description": "Shop naming bags for traditional naming ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
+  },
+  {
+    "handle": "ear-piercing-bags",
+    "title": "Ear Piercing Bags",
+    "description": "Bags for ear piercing ceremonies and gifts.",
+    "seo": { "title": "Ear Piercing Bags", "description": "Shop ear piercing bags for traditional ceremonies." },
+    "updatedAt": "2025-12-20T00:00:00Z"
   }
 ]
