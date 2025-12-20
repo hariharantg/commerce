@@ -128,12 +128,14 @@ export function AddToCart({ product }: { product: Product }) {
     const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
     if (productTiers && productTiers.length) {
       const baseTier = productTiers[0];
-      const basePrice = parseFloat(baseTier.unitPrice.amount);
-      const currentPrice = parseFloat(unitPrice.amount);
-      if (qty >= baseTier.minQuantity && currentPrice < basePrice) {
-        const savings = (basePrice - currentPrice) * qty;
-        if (savings > 0) {
-          savingsMsg = `\nYou save ${formatMoney(savings.toFixed(2), unitPrice.currency)} on this order!`;
+      if (baseTier && baseTier.unitPrice && baseTier.unitPrice.amount) {
+        const basePrice = parseFloat(baseTier.unitPrice.amount);
+        const currentPrice = parseFloat(unitPrice.amount);
+        if (qty >= baseTier.minQuantity && currentPrice < basePrice) {
+          const savings = (basePrice - currentPrice) * qty;
+          if (savings > 0) {
+            savingsMsg = `\nYou save ${formatMoney(savings.toFixed(2), unitPrice.currency)} on this order!`;
+          }
         }
       }
     }
@@ -191,6 +193,7 @@ export function AddToCart({ product }: { product: Product }) {
             const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
             if (!productTiers || !productTiers.length) return null;
             const baseTier = productTiers[0];
+            if (!baseTier || !baseTier.unitPrice || !baseTier.unitPrice.amount) return null;
             const basePrice = parseFloat(baseTier.unitPrice.amount);
             const currentPrice = parseFloat(unitPrice.amount);
             if (parsedQuantity >= baseTier.minQuantity && currentPrice < basePrice) {
