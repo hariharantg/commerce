@@ -11,11 +11,15 @@ export default {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
-      }
-    ,
+      },
       {
         protocol: 'https',
         hostname: 'cdn.example.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.thamboolambags.com',
         pathname: '/**'
       }
     ]
