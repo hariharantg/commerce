@@ -156,74 +156,73 @@ export function AddToCart({ product }: { product: Product }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-row gap-3 items-end w-full overflow-x-auto whitespace-nowrap">
+      <div className="flex flex-col sm:flex-row gap-3 items-end w-full overflow-x-auto whitespace-nowrap">
         {/* Quantity */}
-        <div className="flex flex-col gap-1 flex-shrink-0">
-          <label
-            htmlFor="quantity-input"
-            className="text-sm font-semibold text-neutral-700 dark:text-neutral-200 mb-1 flex items-center gap-2"
-          >
-            Quantity
-            {product.minAllowedQuantity && product.minAllowedQuantity > 1 && (
-              <span className="text-xs text-blue-700 dark:text-blue-400 font-medium">
-                (Min. order: {product.minAllowedQuantity})
-              </span>
-            )}
-          </label>
-          <input
-            id="quantity-input"
-            type="number"
-            min={minQty}
-            value={quantityStr}
-            onChange={(e) => {
-              const v = e.target.value.replace(/[^0-9]/g, "");
-              setQuantityStr(v);
-            }}
-            onBlur={() => {
-              const n = parseInt(quantityStr || String(minQty), 10);
-              setQuantityStr(String(isNaN(n) ? minQty : Math.max(minQty, n)));
-            }}
-            className="w-20 sm:w-24 rounded-lg border border-neutral-300 bg-white px-3 py-2 text-base shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
-            aria-label="Quantity"
-          />
-        </div>
-        {/* Total price */}
-        <div className="flex flex-col gap-1 text-sm justify-end flex-shrink-0">
-          {(() => {
-            const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
-            if (!productTiers || !productTiers.length) return null;
-            const baseTier = productTiers[0];
-            if (!baseTier || !baseTier.unitPrice || !baseTier.unitPrice.amount) return null;
-            const basePrice = parseFloat(baseTier.unitPrice.amount);
-            const currentPrice = parseFloat(unitPrice.amount);
-            if (parsedQuantity >= baseTier.minQuantity && currentPrice < basePrice) {
-              const savings = (basePrice - currentPrice) * parsedQuantity;
-              if (savings > 0) {
-                return (
-                  <div className="mb-1">
-                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full animate-pulse">
-                      You save {formatMoney(savings.toFixed(2), unitPrice.currency)}
-                    </span>
-                  </div>
-                );
-              }
-            }
-            return null;
-          })()}
-          <div className="flex items-center h-full">
-            <span>Total:&nbsp;</span>
-            <span className="font-semibold text-neutral-900 dark:text-white">
-              {formatMoney(total, unitPrice.currency)}
-            </span>
-          </div>
-        </div>
-        {/* Unit price */}
-        <div className="flex flex-col gap-1 text-sm justify-end flex-shrink-0">
-          <div className="flex items-center gap-2 h-full">
-            <span>Unit price:</span>
-            <span className="font-semibold text-neutral-900 dark:text-white">
-              {formatMoney(unitPrice.amount, unitPrice.currency)}
-            </span>
+        <div className="flex flex-col gap-1 flex-shrink-0 w-full sm:w-auto">
+          <div className="flex flex-row items-end gap-4 w-full">
+            <div className="flex flex-col items-start gap-1">
+              <label
+                htmlFor="quantity-input"
+                className="text-sm font-semibold text-neutral-700 dark:text-neutral-200 flex items-center gap-2"
+              >
+                Quantity
+              </label>
+              {product.minAllowedQuantity && product.minAllowedQuantity > 1 && (
+                <span className="text-xs text-blue-700 dark:text-blue-400 font-medium">
+                  (Min. order: {product.minAllowedQuantity})
+                </span>
+              )}
+              <input
+                id="quantity-input"
+                type="number"
+                min={minQty}
+                value={quantityStr}
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9]/g, "");
+                  setQuantityStr(v);
+                }}
+                onBlur={() => {
+                  const n = parseInt(quantityStr || String(minQty), 10);
+                  setQuantityStr(String(isNaN(n) ? minQty : Math.max(minQty, n)));
+                }}
+                className="w-20 sm:w-24 rounded-lg border border-neutral-300 bg-white px-3 py-2 text-base shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                aria-label="Quantity"
+              />
+            </div>
+            {/* Total, Unit price, and You save stacked vertically */}
+            <div className="flex flex-col gap-1 text-sm justify-end flex-shrink-0 items-start">
+              {(() => {
+                const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
+                if (!productTiers || !productTiers.length) return null;
+                const baseTier = productTiers[0];
+                if (!baseTier || !baseTier.unitPrice || !baseTier.unitPrice.amount) return null;
+                const basePrice = parseFloat(baseTier.unitPrice.amount);
+                const currentPrice = parseFloat(unitPrice.amount);
+                if (parsedQuantity >= baseTier.minQuantity && currentPrice < basePrice) {
+                  const savings = (basePrice - currentPrice) * parsedQuantity;
+                  if (savings > 0) {
+                    return (
+                      <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full animate-pulse mb-1">
+                        You save {formatMoney(savings.toFixed(2), unitPrice.currency)}
+                      </span>
+                    );
+                  }
+                }
+                return null;
+              })()}
+              <div>
+                <span className="text-xs text-neutral-600 dark:text-neutral-300">Total:</span>
+                <span className="ml-1 font-semibold text-neutral-900 dark:text-white">
+                  {formatMoney(total, unitPrice.currency)}
+                </span>
+              </div>
+              <div>
+                <span className="text-xs text-neutral-600 dark:text-neutral-300">Unit price:</span>
+                <span className="ml-1 font-semibold text-neutral-900 dark:text-white">
+                  {formatMoney(unitPrice.amount, unitPrice.currency)}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
