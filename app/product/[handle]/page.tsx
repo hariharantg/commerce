@@ -121,9 +121,9 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[110rem] px-4 sm:px-12 lg:px-20">
         <div className="flex flex-col gap-8 rounded-2xl border border-neutral-200 bg-white p-4 sm:p-8 md:p-12 lg:flex-row lg:gap-12 dark:border-neutral-800 dark:bg-black shadow-md">
-          <div className="h-full w-full basis-full lg:basis-4/6">
+          <div className="h-full w-full basis-full lg:basis-6/12">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-xl" />
@@ -139,10 +139,10 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6 flex flex-col gap-6">
+          <div className="basis-full lg:basis-6/12 flex flex-col gap-6">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
-              <ProductPanels />
+              <ProductPanels product={product} />
             </Suspense>
           </div>
         </div>

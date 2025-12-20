@@ -1,9 +1,10 @@
 [
   {
     "id": "gid://shopify/Product/1",
-    "handle": "paper-dotted-bag",
+    "handle": "paper-dotted-thamboolam-bag",
     "availableForSale": true,
-    "title": "Paper Dotted Bag",
+    "personalizable": true,
+    "title": "Paper Dotted Thamboolam Bag",
     "description": "Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.",
     "descriptionHtml": "<p>Our bags are made from eco-friendly materials and crafted by skilled artisans. Each bag is quality checked before shipping. We use sustainable processes and support local communities.</p>",
     "options": [
@@ -26,7 +27,7 @@
         {
           "node": {
                 "id": "gid://shopify/ProductVariant/1",
-                "title": "Default Title",
+                "title": "Orange Variant",
                 "availableForSale": true,
                 "selectedOptions": [{ "name": "Size", "value": "5L x 7H x 3W inch" }, { "name": "Color", "value": "Orange" }],
                 "price": { "amount": "19.99", "currencyCode": "INR" },
@@ -67,7 +68,7 @@
         "/images/products/paper-dotted-bag/Green/Green-paper-dotted-bag-thank-you.jpg"
       ]
     },
-    "seo": { "title": "Paper Dotter thamboolam bag", "description": "Eco-friendly paper dotter thamboolam bag, perfect for traditional ceremonies and gifting." },
+    "seo": { "title": "Paper Dotted thamboolam bag", "description": "Eco-friendly paper dotted thamboolam bag, perfect for traditional ceremonies and gifting." },
     "tags": [
       "all",
       "paper-thamboolam-bags",

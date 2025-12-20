@@ -5,7 +5,7 @@ declare global {
     gapi?: any;
   }
 }
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const reviews = [
 	{
@@ -73,9 +73,13 @@ function StarRating({ rating }: { rating: number }) {
 export default function GoogleReviewsWidget() {
 	const badgeRef = useRef<HTMLDivElement>(null);
 
+
 	useEffect(() => {
-		if (!window.gapi) {
-			const script = document.createElement('script');
+		let script: HTMLScriptElement | null = null;
+		// Only add script if not already present
+		if (!window.gapi && !document.getElementById('google-platform-js')) {
+			script = document.createElement('script');
+			script.id = 'google-platform-js';
 			script.src = 'https://apis.google.com/js/platform.js?onload=renderBadge';
 			script.async = true;
 			script.defer = true;
@@ -84,14 +88,65 @@ export default function GoogleReviewsWidget() {
 		(window as any).renderBadge = function () {
 			if (window.gapi && badgeRef.current) {
 				window.gapi.load('ratingbadge', function () {
-					window.gapi.ratingbadge.render(badgeRef.current, { merchant_id: 115835002, position: 'BOTTOM_LEFT' });
+					if (badgeRef.current) {
+						window.gapi.ratingbadge.render(badgeRef.current, { merchant_id: 115835002, position: 'BOTTOM_LEFT' });
+					}
 				});
 			}
 		};
 		if (window.gapi && badgeRef.current) {
 			(window as any).renderBadge();
 		}
+		return () => {
+			// Clean up global function
+			if ((window as any).renderBadge) {
+				delete (window as any).renderBadge;
+			}
+			// Do not remove the script, as it may be shared by other widgets/pages
+		};
 	}, []);
+
+	// Carousel state
+
+	const [current, setCurrent] = useState<number>(0);
+	const [cardsPerView, setCardsPerView] = useState<number>(3);
+	const total = reviews.length;
+	useEffect(() => {
+		function handleResize() {
+			setCardsPerView(window.innerWidth >= 1024 ? 4 : (window.innerWidth >= 640 ? 3 : 1));
+		}
+		window.addEventListener('resize', handleResize);
+		handleResize();
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	const maxIndex = Math.max(0, total - cardsPerView);
+	const goPrev = () => setCurrent((c: number) => Math.max(0, c - 1));
+	const goNext = () => setCurrent((c: number) => Math.min(maxIndex, c + 1));
+
+	// Auto-slide effect
+	useEffect(() => {
+		let paused = false;
+		const handleMouseEnter = () => { paused = true; };
+		const handleMouseLeave = () => { paused = false; };
+		const container = document.getElementById('reviews-carousel');
+		if (container) {
+			container.addEventListener('mouseenter', handleMouseEnter);
+			container.addEventListener('mouseleave', handleMouseLeave);
+		}
+		const interval = setInterval(() => {
+			if (!paused) {
+				setCurrent((c) => (c < maxIndex ? c + 1 : 0));
+			}
+		}, 4000);
+		return () => {
+			clearInterval(interval);
+			if (container) {
+				container.removeEventListener('mouseenter', handleMouseEnter);
+				container.removeEventListener('mouseleave', handleMouseLeave);
+			}
+		};
+	}, [maxIndex]);
 
 	return (
 		<section className="my-12 w-full max-w-7xl mx-auto rounded-xl bg-white p-8 shadow-xl dark:bg-neutral-900 dark:text-white">
@@ -121,33 +176,58 @@ export default function GoogleReviewsWidget() {
 					See all reviews on Google
 				</a>
 			</div>
-			<div className="mt-8 overflow-x-auto pb-4">
-				<div className="flex gap-8 animate-marquee">
-					{reviews.concat(reviews).map((review, idx) => (
+			<div className="mt-8 w-full flex flex-col items-center">
+				<div id="reviews-carousel" className="relative w-full">
+					<button
+						onClick={goPrev}
+						disabled={current === 0}
+						className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 rounded-full p-2 shadow disabled:opacity-40 disabled:pointer-events-none"
+						aria-label="Previous reviews"
+					>
+						<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+					</button>
+					<div className="overflow-hidden">
 						<div
-							key={idx}
-							  className="min-w-[380px] max-w-md rounded-lg bg-gradient-to-br from-yellow-50 to-white p-6 shadow-lg dark:bg-neutral-900 dark:bg-none dark:text-white flex-shrink-0 flex flex-col h-full border border-yellow-100 dark:border-neutral-800"
+							className="flex transition-transform duration-500"
+							style={{ transform: `translateX(-${current * (100 / cardsPerView)}%)` }}
 						>
-							<div className="flex items-center gap-2 mb-3">
-								<span className="font-semibold text-lg text-neutral-800 dark:text-white truncate max-w-[220px]">{review.name}</span>
-								<StarRating rating={review.rating} />
-							</div>
-							<p className="text-base text-neutral-900 dark:text-white whitespace-pre-line break-words leading-relaxed">
-								{review.text}
-							</p>
+							{reviews.map((review, idx) => (
+								<div
+									key={idx}
+									className="w-full max-w-md min-w-[320px] flex-1 rounded-lg bg-gradient-to-br from-yellow-50 to-white p-6 shadow-lg dark:bg-neutral-900 dark:bg-none dark:text-white flex-shrink-0 flex flex-col h-full border border-yellow-100 dark:border-neutral-800 mx-2"
+									style={{ flex: `0 0 ${100 / cardsPerView}%` }}
+								>
+									<div className="flex items-center gap-2 mb-3">
+										<span className="font-semibold text-lg text-neutral-800 dark:text-white truncate max-w-[220px]">{review.name}</span>
+										<StarRating rating={review.rating} />
+									</div>
+									<p className="text-base text-neutral-900 dark:text-white whitespace-pre-line break-words leading-relaxed">
+										{review.text}
+									</p>
+								</div>
+							))}
 						</div>
+					</div>
+					<button
+						onClick={goNext}
+						disabled={current === maxIndex}
+						className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 rounded-full p-2 shadow disabled:opacity-40 disabled:pointer-events-none"
+						aria-label="Next reviews"
+					>
+						<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+					</button>
+				</div>
+				<div className="flex gap-2 mt-4">
+					{Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+						<button
+							key={idx}
+							onClick={() => setCurrent(idx)}
+							className={`w-3 h-3 rounded-full ${current === idx ? 'bg-yellow-600' : 'bg-yellow-200'}`}
+							aria-label={`Go to slide ${idx + 1}`}
+						/>
 					))}
 				</div>
 			</div>
-			<style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 40s linear infinite;
-        }
-      `}</style>
 		</section>
 	);
 }

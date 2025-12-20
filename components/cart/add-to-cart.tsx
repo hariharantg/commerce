@@ -123,7 +123,21 @@ export function AddToCart({ product }: { product: Product }) {
           (o) => `${o.name}: ${state[o.name.toLowerCase()] || o.value}`
         )
       : opts;
-    const msg = `Order request:\nProduct: ${product.title}\nVariant: ${selectedOpts.join(", ")}\nQuantity: ${qty}\nUnit price: ${formatMoney(unitPrice.amount, unitPrice.currency)}\nTotal: ${formatMoney(total, unitPrice.currency)}\nProduct link: ${productLink}`;
+    // Calculate savings if applicable
+    let savingsMsg = "";
+    const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
+    if (productTiers && productTiers.length) {
+      const baseTier = productTiers[0];
+      const basePrice = parseFloat(baseTier.unitPrice.amount);
+      const currentPrice = parseFloat(unitPrice.amount);
+      if (qty >= baseTier.minQuantity && currentPrice < basePrice) {
+        const savings = (basePrice - currentPrice) * qty;
+        if (savings > 0) {
+          savingsMsg = `\nYou save ${formatMoney(savings.toFixed(2), unitPrice.currency)} on this order!`;
+        }
+      }
+    }
+    const msg = `Order request:\nProduct: ${product.title}\nVariant: ${selectedOpts.join(", ")}\nQuantity: ${qty}\nUnit price: ${formatMoney(unitPrice.amount, unitPrice.currency)}\nTotal: ${formatMoney(total, unitPrice.currency)}${savingsMsg}\nProduct link: ${productLink}`;
     return msg;
   }, [
     product,
@@ -140,8 +154,9 @@ export function AddToCart({ product }: { product: Product }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-row gap-4 items-end">
-        <div className="flex flex-col gap-1">
+      <div className="flex flex-row gap-3 items-end w-full overflow-x-auto whitespace-nowrap">
+        {/* Quantity */}
+        <div className="flex flex-col gap-1 flex-shrink-0">
           <label
             htmlFor="quantity-input"
             className="text-sm font-semibold text-neutral-700 dark:text-neutral-200 mb-1 flex items-center gap-2"
@@ -153,36 +168,58 @@ export function AddToCart({ product }: { product: Product }) {
               </span>
             )}
           </label>
-          <div className="flex items-center gap-2">
-            <input
-              id="quantity-input"
-              type="number"
-              min={minQty}
-              value={quantityStr}
-              onChange={(e) => {
-                const v = e.target.value.replace(/[^0-9]/g, "");
-                setQuantityStr(v);
-              }}
-              onBlur={() => {
-                const n = parseInt(quantityStr || String(minQty), 10);
-                setQuantityStr(String(isNaN(n) ? minQty : Math.max(minQty, n)));
-              }}
-              className="w-24 rounded-lg border border-neutral-300 bg-white px-3 py-2 text-base shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
-              aria-label="Quantity"
-            />
-          </div>
+          <input
+            id="quantity-input"
+            type="number"
+            min={minQty}
+            value={quantityStr}
+            onChange={(e) => {
+              const v = e.target.value.replace(/[^0-9]/g, "");
+              setQuantityStr(v);
+            }}
+            onBlur={() => {
+              const n = parseInt(quantityStr || String(minQty), 10);
+              setQuantityStr(String(isNaN(n) ? minQty : Math.max(minQty, n)));
+            }}
+            className="w-20 sm:w-24 rounded-lg border border-neutral-300 bg-white px-3 py-2 text-base shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+            aria-label="Quantity"
+          />
         </div>
-        <div className="flex flex-col gap-1 text-sm">
-          <div>
-            Unit price:{" "}
-            <span className="font-semibold text-neutral-900 dark:text-white">
-              {formatMoney(unitPrice.amount, unitPrice.currency)}
-            </span>
-          </div>
-          <div>
-            Total:{" "}
+        {/* Total price */}
+        <div className="flex flex-col gap-1 text-sm justify-end flex-shrink-0">
+          {(() => {
+            const productTiers = (product as any).pricingTiers as { minQuantity: number; unitPrice: { amount: string; currencyCode: string } }[] | undefined;
+            if (!productTiers || !productTiers.length) return null;
+            const baseTier = productTiers[0];
+            const basePrice = parseFloat(baseTier.unitPrice.amount);
+            const currentPrice = parseFloat(unitPrice.amount);
+            if (parsedQuantity >= baseTier.minQuantity && currentPrice < basePrice) {
+              const savings = (basePrice - currentPrice) * parsedQuantity;
+              if (savings > 0) {
+                return (
+                  <div className="mb-1">
+                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full animate-pulse">
+                      You save {formatMoney(savings.toFixed(2), unitPrice.currency)}
+                    </span>
+                  </div>
+                );
+              }
+            }
+            return null;
+          })()}
+          <div className="flex items-center h-full">
+            <span>Total:&nbsp;</span>
             <span className="font-semibold text-neutral-900 dark:text-white">
               {formatMoney(total, unitPrice.currency)}
+            </span>
+          </div>
+        </div>
+        {/* Unit price */}
+        <div className="flex flex-col gap-1 text-sm justify-end flex-shrink-0">
+          <div className="flex items-center gap-2 h-full">
+            <span>Unit price:</span>
+            <span className="font-semibold text-neutral-900 dark:text-white">
+              {formatMoney(unitPrice.amount, unitPrice.currency)}
             </span>
           </div>
         </div>
@@ -218,7 +255,7 @@ export function AddToCart({ product }: { product: Product }) {
       {/* Tier list - moved to bottom */}
       <div>
         <h3 className="mb-2 text-sm font-medium">Pricing tiers</h3>
-        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-2">
+        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {(() => {
             const variantTiers = (finalVariant as any)?.pricingTiers as
               | {
